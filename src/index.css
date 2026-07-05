@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #f3f3f3;
+  font-family: Arial, Helvetica, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+#root {
+  min-height: 100vh;
+}

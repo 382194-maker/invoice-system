@@ -1,0 +1,527 @@
+/* ===== Invoice layout ===== */
+.pos-invoice {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Table Header */
+.prescription-table thead th,
+.items-table thead th,
+.transaction-table th {
+  font-weight: 700 !important;
+  background-color: #f1f5f9 !important;
+  color: #1a1a1a !important;
+}
+
+/* Invoice Sheet */
+.invoice-sheet {
+  width: 794px;
+  margin: 0 auto;
+  background: #ffffff !important;
+  padding: 20px;
+  box-sizing: border-box;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+/* Close Button */
+.invoice-close {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #6b6b6b;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invoice-close:hover {
+  background: #5a5a5a;
+}
+
+/* =====  ===== */
+/* ===== প্রিন্ট ড্রপডাউন মেনুর সিএসএস (UI ডিজাইন) ===== */
+/* মেইন প্যারেন্ট র‍্যাপারকে ফুল উইডথ করে এলিমেন্ট ডানপাশে চাপানোর ব্যবস্থা */
+.print-actions-wrapper {
+  display: flex !important;
+  justify-content: flex-end !important; /* বাটনকে একদম ডানপাশে (Right side) নিয়ে যাবে */
+  max-width: 794px; /* আপনার ইনভয়েস শিটের উইডথের সাথে সমান রাখা হলো */
+  margin: 0 auto 20px auto !important; /* স্ক্রিনের মাঝখানে ইনভয়েসের লাইনে লক করা */
+  position: relative;
+}
+
+/* আপনার সেই মেইন প্রিন্ট বাটন */
+.main-print-btn {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  padding: 10px 24px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.1);
+}
+
+/* ড্রপডাউন মেনুর পজিশনও এখন ডানপাশের বাটন অনুযায়ী সেট হবে */
+.print-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0; /* ড্রপডাউন মেনুটি যেন ডানপাশ ঘেঁষে নিচের দিকে খোলে */
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  width: 240px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.print-dropdown-menu button {
+  width: 100% !important;
+  background: none !important;
+  color: #334155 !important;
+  padding: 12px 16px !important;
+  text-align: left !important;
+  border: none !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  display: block !important;
+}
+
+.print-dropdown-menu button:hover {
+  background-color: #f1f5f9 !important;
+  color: #2563eb !important;
+}
+
+/* ========================================================
+   ===== সংশোধন: POS প্রিন্টার মোড (১০০% সেন্টারে আনা) =====
+   ======================================================== */
+.invoice-sheet.pos-printer-mode {
+  width: 320px !important; /* স্ট্যান্ডার্ড থার্মাল পেপার উইডথ */
+  margin: 0 auto !important; /* স্ক্রিনের একদম মাঝখানে (Center) লক করার জন্য */
+  padding: 12px !important;
+  font-size: 12px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important; /* স্ক্রিনে মেমোর মতো দেখানোর জন্য */
+  border-radius: 4px;
+}
+
+/* POS মোডে সব লেখা এবং টেক্সট ব্লক সেন্টারে অ্যাডজাস্ট করা */
+.invoice-sheet.pos-printer-mode .invoice-header {
+  text-align: center !important; /* হসপিটাল বা কোম্পানির নাম সেন্টারে আনা */
+}
+
+.invoice-sheet.pos-printer-mode .invoice-title {
+  font-size: 20px !important;
+  text-align: center !important;
+  margin-bottom: 8px !important;
+  text-transform: uppercase;
+}
+
+.invoice-sheet.pos-printer-mode .company-name {
+  font-size: 15px !important;
+  text-align: center !important;
+}
+
+.invoice-sheet.pos-printer-mode .company-lines {
+  text-align: center !important;
+  font-size: 11px !important;
+  margin-bottom: 12px !important;
+}
+
+/* বিলিং এবং সামারি ব্লককে পাশাপাশি না রেখে নিচে নিচে বসানো এবং গ্যাপ কমানো */
+.invoice-sheet.pos-printer-mode .invoice-meta {
+  display: flex !important;
+  flex-direction: column !important; /* নিচে নিচে নামানোর ট্রিক */
+  gap: 10px !important;
+  border-top: 1px dashed #ccc !important; /* পস মেমোর মতো ড্যাশ বর্ডার */
+  padding-top: 8px !important;
+  margin-bottom: 12px !important;
+}
+
+.invoice-sheet.pos-printer-mode .billing-block,
+.invoice-sheet.pos-printer-mode .summary-block {
+  width: 100% !important;
+  text-align: left !important;
+}
+
+/* পস মেমোর ভেতরের টেবিলগুলোর টাইট স্টাইল */
+.invoice-sheet.pos-printer-mode table {
+  width: 100% !important;
+  font-size: 11px !important;
+  margin-bottom: 10px !important;
+  border-collapse: collapse !important;
+}
+
+.invoice-sheet.pos-printer-mode th, 
+.invoice-sheet.pos-printer-mode td {
+  padding: 5px 2px !important;
+}
+
+/* টোটাল হিসাবের অংশটি পস মেমোর ডানে সুন্দরভাবে ফিট করা */
+.invoice-sheet.pos-printer-mode .invoice-totals-wrap {
+  margin-top: 10px !important;
+  border-top: 1px dashed #ccc !important;
+  padding-top: 8px !important;
+}
+
+.invoice-sheet.pos-printer-mode .invoice-totals {
+  width: 100% !important;
+}
+
+
+
+/* ===== Header ===== */
+.invoice-title {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0 0 20px;
+  letter-spacing: -.5px;
+}
+
+.company-name {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.company-lines {
+  margin: 0;
+  color: var(--muted);
+}
+
+.company-lines p {
+  margin: 0 0 2px;
+}
+
+/* Meta */
+.invoice-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 35px;
+}
+
+.billing-block h3,
+.summary-block h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.billing-block .strong {
+  font-weight: 700;
+}
+
+.billing-block p {
+  margin: 0 0 2px;
+  color: var(--muted);
+}
+
+.billing-phone {
+  margin-top: 15px;
+}
+
+.summary-block {
+  text-align: right;
+}
+
+.summary-block p {
+  margin: 0 0 4px;
+  color: var(--muted);
+}
+
+.summary-block b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.due-amount {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+/* Prescription Table */
+.prescription-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 35px;
+  border: 1px solid var(--line);
+  table-layout: fixed;
+  font-size: 15px;
+}
+
+.prescription-table th,
+.prescription-table td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.prescription-table tbody .row-label {
+  font-weight: 700;
+}
+
+/* Items Table */
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  table-layout: fixed;
+}
+
+.items-table thead th {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line-strong);
+  text-align: right;
+}
+
+.items-table thead th.col-desc {
+  width: 45%;
+  text-align: left;
+}
+
+.items-table thead th:not(.col-desc) {
+  width: 13.75%;
+}
+
+.items-table tbody td {
+  padding: 12px 8px;
+  text-align: right;
+  vertical-align: top;
+  word-wrap: break-word;
+}
+
+.items-table tbody td.col-desc {
+  text-align: left;
+}
+
+.items-table td.col-desc {
+  display: flex;
+  gap: 6px;
+}
+
+.item-index {
+  flex: 0 0 auto;
+}
+
+.item-desc {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Totals */
+.invoice-totals-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.totals-dot {
+  color: transparent;
+  padding-top: 22px;
+}
+
+.invoice-totals {
+  width: 320px;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 8px;
+}
+
+.label {
+  color: var(--muted);
+}
+
+.value {
+  color: var(--ink);
+  padding-right: 4px;
+}
+
+.totals-grand {
+  border-top: 1px solid var(--line-strong);
+}
+
+.totals-grand .label,
+.totals-grand .value {
+  font-weight: 700;
+}
+
+/* Transaction */
+.transaction-history {
+  margin-top: 30px;
+}
+
+.transaction-history h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--line-strong);
+  table-layout: fixed;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 10px 8px;
+}
+
+.transaction-table th {
+  text-align: left;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.transaction-table td {
+  color: var(--muted);
+  word-wrap: break-word;
+}
+
+.col-amount {
+  text-align: right;
+  width: 20%;
+}
+
+/* ===========================
+   PRINT ACTION BUTTONS
+=========================== */
+
+.print-actions {
+  max-width: 820px;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 44px;
+}
+
+.print-actions button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  background: #007bff !important;
+  color: #ffffff !important;
+
+  border: 1px solid #007bff !important;
+  border-radius: 6px;
+
+  padding: 10px 24px;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.print-actions button:hover {
+  background: #0056b3 !important;
+  border-color: #0056b3 !important;
+}
+
+/* Responsive */
+@media (max-width:640px){
+
+  .invoice-sheet{
+    width:100%;
+    padding:20px 14px;
+  }
+
+  .invoice-meta{
+    flex-direction:column;
+  }
+
+  .summary-block{
+    text-align:left;
+  }
+
+  .prescription-table,
+  .items-table,
+  .transaction-table{
+    table-layout:auto;
+  }
+
+}
+
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+/* 
+@page {
+  size: 80mm auto;
+  margin: 0;
+} */
+
+@media print {
+
+  html,
+  body,
+  .pos-invoice,
+  .invoice-sheet {
+    background: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  html,
+  body {
+    width: 80mm;
+    margin: 0;
+    padding: 0;
+  }
+
+  .print-actions {
+    display: none !important;
+  }
+
+  .invoice-close {
+    display: none !important;
+  }
+
+.invoice-sheet.pos-printer-mode{
+
+    width:302px !important;
+    max-width:302px !important;
+
+    padding:8px !important;
+
+    margin:0 auto !important;
+
+    box-shadow:none !important;
+
+    border:none !important;
+}
+
+
+  .invoice-sheet.pos-printer-mode * {
+    color: #000 !important;
+  }
+}

@@ -1,0 +1,33 @@
+.invoice-page {
+  min-height: 100vh;
+  padding: 32px 16px 48px;
+}
+
+.invoice-page .pos-invoice .invoice-sheet {
+  border: 4px solid #111111;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.page-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-size: 18px;
+  color: #555555;
+}
+
+@media print {
+  .invoice-page {
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .invoice-page .pos-invoice,
+  .invoice-page .pos-invoice .invoice-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+}
