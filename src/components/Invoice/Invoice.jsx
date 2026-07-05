@@ -1,5 +1,5 @@
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import POSInvoice from "./POSInvoice.jsx"
 import PrintButtons from "../Print/PrintButtons.jsx"
 import "./invoice.css"
@@ -10,11 +10,25 @@ import "./invoice.css"
  */
 function Invoice({ invoice, onClose }) {
   const sheetRef = useRef(null)
+  const [isPrinting, setIsPrinting] = useState(false)
+
+  // Safe DOM text replacement before printing
+  const displayInvoice = {
+    ...invoice,
+    summary: {
+      ...invoice.summary,
+      currencySymbol: isPrinting ? "BDT" : invoice.summary.currencySymbol
+    }
+  }
 
   return (
     <div className="pos-invoice">
-      <PrintButtons targetRef={sheetRef} />
-      <POSInvoice ref={sheetRef} invoice={invoice} onClose={onClose} />
+      <PrintButtons 
+        targetRef={sheetRef} 
+        onPrintStart={() => setIsPrinting(true)}
+        onPrintEnd={() => setIsPrinting(false)}
+      />
+      <POSInvoice ref={sheetRef} invoice={displayInvoice} onClose={onClose} />
     </div>
   )
 }

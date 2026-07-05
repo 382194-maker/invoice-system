@@ -10,12 +10,9 @@ export async function generatePOSPdf(element) {
     throw new Error("No element provided.");
   }
 
-  // ১. অরিজিনাল ডাটা এবং ক্লাসের ব্যাকআপ
-  const originalHtml = element.innerHTML;
+  // 1.orginal data and class backup
   const wasPosPrinterMode = element.classList.contains("pos-printer-mode");
 
-  element.innerHTML = element.innerHTML.replace(/৳/g, "BDT");
-  
   if (!wasPosPrinterMode) {
     element.classList.add("pos-printer-mode");
   }
@@ -66,12 +63,14 @@ export async function generatePOSPdf(element) {
     const blob = pdf.output("blob");
     return URL.createObjectURL(blob);
 
+  } catch (error) {
+    console.error("PDF generation failed:", error);
+    throw error;
   } finally {
-    // ৮. ডম আগের অবস্থায় ফিরিয়ে আনা
+    // 8. Restore DOM
     if (!wasPosPrinterMode) {
       element.classList.remove("pos-printer-mode");
     }
     element.setAttribute("style", originalStyle);
-    element.innerHTML = originalHtml;
   }
 }

@@ -5,7 +5,7 @@ import { generatePOSPdf } from "../../utils/generatePOSPdf.js";
 
 import { openInNewTab } from "../../utils/printHelper.js";
 
-function PrintButtons({ targetRef }) {
+function PrintButtons({ targetRef, onPrintStart, onPrintEnd }) {
 
   const [busy, setBusy] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -19,6 +19,11 @@ function PrintButtons({ targetRef }) {
       setBusy(true);
 
       setShowOptions(false);
+      
+      if (onPrintStart) onPrintStart();
+      
+      // Allow React to re-render with the BDT currency symbol before generating PDF
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       let url;
 
@@ -47,6 +52,8 @@ function PrintButtons({ targetRef }) {
       targetRef.current.classList.remove("pos-printer-mode");
 
       setBusy(false);
+      
+      if (onPrintEnd) onPrintEnd();
 
     }
 
