@@ -1,4 +1,24 @@
-function InvoiceHeader({ company, billingTo, summary }) {
+function InvoiceHeader({ company, billingTo, summary, isPosMode }) {
+  if (isPosMode) {
+    return (
+      <header className="invoice-header">
+        <h2 className="company-name">{company.name}</h2>
+        <div className="company-lines">
+          <p>{company.address}</p>
+          <p>{company.contact}</p>
+        </div>
+        
+        <h1 className="invoice-title" style={{ fontSize: '14px', marginBottom: '10px' }}>Invoice</h1>
+
+        <div className="invoice-meta" style={{ textAlign: 'left', marginTop: '10px', fontSize: '11px', borderBottom: '1px dashed #ccc', paddingBottom: '10px' }}>
+          <p style={{ margin: '2px 0' }}>Ref: {billingTo.name}</p>
+          <p style={{ margin: '2px 0' }}>Date: {summary.invoiceDate}</p>
+          <p style={{ margin: '2px 0' }}>Invoice: {summary.invoiceNumber}</p>
+        </div>
+      </header>
+    )
+  }
+
   return (
     <header className="invoice-header">
       <h1 className="invoice-title">Invoice</h1>

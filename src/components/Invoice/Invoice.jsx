@@ -11,6 +11,7 @@ import "./invoice.css"
 function Invoice({ invoice, onClose }) {
   const sheetRef = useRef(null)
   const [isPrinting, setIsPrinting] = useState(false)
+  const [printType, setPrintType] = useState('A4')
 
   // Safe DOM text replacement before printing
   const displayInvoice = {
@@ -21,14 +22,16 @@ function Invoice({ invoice, onClose }) {
     }
   }
 
+  const isPosMode = isPrinting && printType === 'POS';
+
   return (
     <div className="pos-invoice">
       <PrintButtons 
         targetRef={sheetRef} 
-        onPrintStart={() => setIsPrinting(true)}
+        onPrintStart={(type) => { setIsPrinting(true); setPrintType(type); }}
         onPrintEnd={() => setIsPrinting(false)}
       />
-      <POSInvoice ref={sheetRef} invoice={displayInvoice} onClose={onClose} />
+      <POSInvoice ref={sheetRef} invoice={displayInvoice} isPosMode={isPosMode} onClose={onClose} />
     </div>
   )
 }

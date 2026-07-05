@@ -20,7 +20,7 @@ function PrintButtons({ targetRef, onPrintStart, onPrintEnd }) {
 
       setShowOptions(false);
       
-      if (onPrintStart) onPrintStart();
+      if (onPrintStart) onPrintStart(type);
       
       // Allow React to re-render with the BDT currency symbol before generating PDF
       await new Promise(resolve => setTimeout(resolve, 100));

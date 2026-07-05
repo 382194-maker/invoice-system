@@ -1,4 +1,35 @@
-function MedicineTable({ prescription, items, currencySymbol }) {
+function MedicineTable({ prescription, items, currencySymbol, isPosMode }) {
+  if (isPosMode) {
+    return (
+      <section className="invoice-tables">
+        <table className="items-table pos-items-table" style={{ width: '100%', fontSize: '11px', textAlign: 'left', marginTop: '10px', borderBottom: '1px dashed #ccc', paddingBottom: '10px' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid #ccc' }}>
+              <th style={{ padding: '4px 0', textAlign: 'left' }}>Description</th>
+              <th style={{ padding: '4px 0', textAlign: 'center' }}>Qty</th>
+              <th style={{ padding: '4px 0', textAlign: 'right' }}>Price</th>
+              <th style={{ padding: '4px 0', textAlign: 'right' }}>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => (
+              <tr key={item.id}>
+                <td style={{ padding: '4px 0' }}>
+                  {item.description.map((line, idx) => (
+                    <div key={idx}>{line}</div>
+                  ))}
+                </td>
+                <td style={{ padding: '4px 0', textAlign: 'center' }}>{item.qty}</td>
+                <td style={{ padding: '4px 0', textAlign: 'right' }}>{item.price}</td>
+                <td style={{ padding: '4px 0', textAlign: 'right' }}>{item.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )
+  }
+
   return (
     <section className="invoice-tables">
       {/* Prescription / Power table */}
@@ -45,7 +76,7 @@ function MedicineTable({ prescription, items, currencySymbol }) {
         </thead>
         <tbody>
           {items.map((item, index) => (
-            <tr key={item.id}>
+            <tr key={item.id || index}>
               <td className="col-desc">
                 <span className="item-index">{index + 1}.</span>
                 <span className="item-desc">
